@@ -1,11 +1,13 @@
 import os
+from PIL import Image
 
-def find_img(directory):
+
+def find_img(directory) -> list[Image.Image]:
     images = []
     for element in os.listdir(directory):
         if os.path.isdir(element):
-            pass 
+            pass
         else:
-            images.append(element)
+            img = Image.open(directory + element)
+            images.append(img.convert("RGB"))
     return images
-    pass
