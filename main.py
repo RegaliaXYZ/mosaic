@@ -49,8 +49,12 @@ def main():
     # Create the mosaic
     output = create_mosaique(src_to_process, images,
                              dims, saturation, lightness)
-    suffix = "WL_" if lightness else "SL_"
-    suffix += "WS" if sat else "SS"
+    
+    # Adding suffixes for output file name
+    # WL = With Lightness, WS = With Saturation
+    # NL = No Lightness, NS = No Saturation
+    suffix = "WL_" if lightness else "NL_"
+    suffix += "WS" if saturation else "NS"
     ext = ".png" if parts[1] == "png" else ".jpg"
     ext_cap = "PNG" if parts[1] == "png" else "JPEG"
     output.save(directoryOutputs + parts[0] + "_" +

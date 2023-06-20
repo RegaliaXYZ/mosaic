@@ -2,32 +2,27 @@ from PIL import Image, ImageFilter
 
 
 def normalize(images: list, dims: list[int]) -> list[Image.Image]:
-
-    maxH = 0
-    minH = images[0].size[0]
-    maxW = 0
-    minW = images[0].size[1]
-    newImages = []
+    normalized_images = []
 
     for i in range(len(images)):
-        newImages.append(resize(images[i], dims))
+        normalized_images.append(resize(images[i], dims))
 
-    return newImages
+    return normalized_images
 
 
-def resize(im, dims):
+def resize(src_img: Image.Image, dims: list[int]) -> Image.Image:
 
-    img = Image.new("RGB", (dims[0], dims[1]))
-    new = img.load()
-    old = im.load()
+    out_img = Image.new("RGB", (dims[0], dims[1]))
+    new_image = out_img.load()
+    old_image = src_img.load()
 
-    ratioX = im.size[0] / img.size[0]
-    ratioY = im.size[1] / img.size[1]
+    ratioX = src_img.size[0] / out_img.size[0]
+    ratioY = src_img.size[1] / out_img.size[1]
 
-    for y in range(img.size[1]):
-        for x in range(img.size[0]):
+    for y in range(out_img.size[1]):
+        for x in range(out_img.size[0]):
             X = int(x*ratioX)
             Y = int(y*ratioY)
-            new[x, y] = old[X, Y]
+            new_image[x, y] = old_image[X, Y]
 
-    return img
+    return out_img
